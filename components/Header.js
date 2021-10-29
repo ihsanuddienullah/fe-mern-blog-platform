@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { signout, isAuth } from "../actions/auth";
 import {
     Collapse,
     Navbar,
@@ -15,6 +16,7 @@ import {
 } from "reactstrap";
 import { APP_NAME } from "../config";
 import Link from "next/link";
+import Router from "next/router";
 
 const Header = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -32,16 +34,32 @@ const Header = (props) => {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
-                        <NavItem>
-                            <Link href="/signin">
-                                <NavLink>Signin</NavLink>
-                            </Link>
-                        </NavItem>
-                        <NavItem>
-                            <Link href="/signup">
-                                <NavLink>Signup</NavLink>
-                            </Link>
-                        </NavItem>
+                        {!isAuth() && (
+                            <>
+                                <NavItem>
+                                    <Link href="/signin">
+                                        <NavLink>Signin</NavLink>
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link href="/signup">
+                                        <NavLink>Signup</NavLink>
+                                    </Link>
+                                </NavItem>
+                            </>
+                        )}
+                        {isAuth() && (
+                            <NavItem>
+                                <NavLink
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() =>
+                                        signout(() => Router.replace("/signin"))
+                                    }
+                                >
+                                    Signout
+                                </NavLink>
+                            </NavItem>
+                        )}
                     </Nav>
                     <NavbarText>Simple Text</NavbarText>
                 </Collapse>
