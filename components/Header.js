@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signout, isAuth } from "../actions/auth";
+import { NProgress } from "nprogress";
 import {
     Collapse,
     Navbar,
@@ -17,6 +18,10 @@ import {
 import { APP_NAME } from "../config";
 import Link from "next/link";
 import Router from "next/router";
+
+Router.onRouteChangeStart = url => NProgress.start();
+Router.onRouteChangeComplete = url => NProgress.done();
+Router.onRouteChangeError = url => NProgress.done();
 
 const Header = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +63,24 @@ const Header = (props) => {
                                 >
                                     Signout
                                 </NavLink>
+                            </NavItem>
+                        )}
+                        {isAuth() && isAuth().role === 0 && (
+                            <NavItem>
+                                <Link href="/user">
+                                    <NavLink>
+                                        {`${isAuth().name}'s Dashboard'`}
+                                    </NavLink>
+                                </Link>
+                            </NavItem>
+                        )}
+                        {isAuth() && isAuth().role === 1 && (
+                            <NavItem>
+                                <Link href="/admin">
+                                    <NavLink>
+                                        {`${isAuth().name}'s Dashboard'`}
+                                    </NavLink>
+                                </Link>
                             </NavItem>
                         )}
                     </Nav>

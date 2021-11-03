@@ -1,9 +1,9 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { signin, authenticate, isAuth } from "../../actions/auth";
-import Router from 'next/router';
+import Router from "next/router";
 
 const SigninComponent = () => {
-    const [values, setValues] = useState({        
+    const [values, setValues] = useState({
         email: "",
         password: "",
         error: "",
@@ -15,11 +15,11 @@ const SigninComponent = () => {
     const { email, password, error, loading, message, showForm } = values;
 
     useEffect(() => {
-        isAuth() && Router.push('/')
-    }, [])
+        isAuth() && Router.push("/");
+    }, []);
 
     const handleSubmit = (e) => {
-        e.preventDefault();       
+        e.preventDefault();
         setValues({ ...values, loading: true, error: false });
         const user = { email, password };
         signin(user).then((data) => {
@@ -27,8 +27,12 @@ const SigninComponent = () => {
                 setValues({ ...values, error: data.error, loading: false });
             } else {
                 authenticate(data, () => {
-                    Router.push('/')                
-                })
+                    if (isAuth() && isAuth().role === 1) {
+                        Router.push("/admin");
+                    } else {
+                        Router.push("/user");
+                    }
+                });
             }
         });
     };
@@ -49,7 +53,7 @@ const SigninComponent = () => {
 
     const signinForm = () => {
         return (
-            <form onSubmit={handleSubmit}>                
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <input
                         value={email}
