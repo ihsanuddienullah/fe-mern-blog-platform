@@ -127,7 +127,7 @@ const Tag = () => {
     const newTagForm = () => (
         <form onSubmit={clickSubmit}>
             <div className="form-group">
-                <label className="text-muted">Name</label>
+                <label className="text-muted">Tag Name</label>
                 <input
                     type="text"
                     className="form-control"
