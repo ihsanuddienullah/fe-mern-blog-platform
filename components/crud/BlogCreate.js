@@ -71,8 +71,7 @@ const CreateBlog = ({ router }) => {
     };
 
     const publishBlog = (e) => {
-        e.preventDefault();
-        console.log("kok gamasuk");
+        e.preventDefault();        
         createBlog(formData, token).then((data) => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
