@@ -5,7 +5,7 @@ export const createBlog = (blog, token) => {
     return fetch(`${API}/blog`, {
         method: "POST",
         headers: {
-            Accept: "application/json",            
+            Accept: "application/json",
             Authorization: `Bearer ${token}`,
         },
         body: blog,
@@ -16,16 +16,21 @@ export const createBlog = (blog, token) => {
         .catch((err) => console.log(err));
 };
 
-export const listBlogsWithCategoriesAndTags = () => {
+export const listBlogsWithCategoriesAndTags = (limit, skip) => {
+    data = {
+        limit,
+        skip,
+    };
     return fetch(`${API}/blogs-categories-tags`, {
         method: "POST",
         headers: {
-            Accept: "application/json",                        
-        },        
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
     })
         .then((response) => {
             return response.json();
         })
         .catch((err) => console.log(err));
 };
-
