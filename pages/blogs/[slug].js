@@ -1,13 +1,26 @@
 import Head from "next/head";
 import Link from "next/link";
 import Layout from "../../components/Layout";
-import { useState } from "react";
-import { singleBlog } from "../../actions/blog";
+import { useState, useEffect } from "react";
+import { listRelated, singleBlog } from "../../actions/blog";
 import { APP_NAME, API, DOMAIN, FB_APP_ID } from "../../config";
 import renderHTML from "html-react-parser";
 import moment from "moment";
+import SmallCard from "../../components/blog/SmallCard";
 
 const SingleBlog = ({ blog, query }) => {
+    const [related, setRelated] = useState([]);
+
+    const loadRelated = () => {
+        listRelated({ blog }).then((data) => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                setRelated(data);
+            }
+        });
+    };
+
     const head = () => {
         return (
             <Head>
@@ -15,10 +28,7 @@ const SingleBlog = ({ blog, query }) => {
                     {blog.title} | {APP_NAME}
                 </title>
                 <meta name="description" content={blog.mdesc} />
-                <link
-                    rel="canonical"
-                    href={`${DOMAIN}/blogs/${query.slug}`}
-                />
+                <link rel="canonical" href={`${DOMAIN}/blogs/${query.slug}`} />
                 <meta
                     property="og:title"
                     content={`${blog.title} | ${APP_NAME}`}
@@ -60,6 +70,22 @@ const SingleBlog = ({ blog, query }) => {
                 </a>
             </Link>
         ));
+
+    const showRelatedBlog = () => {
+        return related.map((blog, i) => {
+            return (
+                <div className="col-md-4" key={i}>
+                    <article>
+                        <SmallCard blog={blog} />
+                    </article>
+                </div>
+            );
+        });
+    };
+
+    useEffect(() => {
+        loadRelated();
+    }, []);
 
     return (
         <>
@@ -110,7 +136,7 @@ const SingleBlog = ({ blog, query }) => {
                                 Related blogs
                             </h4>
                             <hr />
-                            <p>show related blogs</p>
+                            <div className="row">{showRelatedBlog()}</div>
                         </div>
 
                         <div className="container pb-5">

@@ -76,7 +76,10 @@ const Blogs = ({
         return (
             size > 0 &&
             size >= limit && (
-                <button onClick={loadMore} className="btn btn-outline-primary btn-lg">
+                <button
+                    onClick={loadMore}
+                    className="btn btn-outline-primary btn-lg"
+                >
                     Load More
                 </button>
             )
@@ -161,7 +164,6 @@ const Blogs = ({
 Blogs.getInitialProps = () => {
     let skip = 0;
     let limit = 2;
-
     return listBlogsWithCategoriesAndTags(skip, limit).then((data) => {
         if (data.error) {
             console.log(data.error);
