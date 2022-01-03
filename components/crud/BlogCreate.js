@@ -71,7 +71,7 @@ const CreateBlog = ({ router }) => {
     };
 
     const publishBlog = (e) => {
-        e.preventDefault();        
+        e.preventDefault();
         createBlog(formData, token).then((data) => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
@@ -230,6 +230,7 @@ const CreateBlog = ({ router }) => {
                             <h5>Featured Image</h5>
                             <hr />
                             <small className="text-muted">Max size: 1MB</small>
+                            <br />
                             <label className="btn btn-outline-info">
                                 Upload featured image
                                 <input
