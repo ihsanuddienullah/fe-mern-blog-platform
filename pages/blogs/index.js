@@ -4,7 +4,7 @@ import { withRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { useState } from "react";
 import { listBlogsWithCategoriesAndTags } from "../../actions/blog";
-import Card from "../../components/blog/card";
+import Card from "../../components/blog/Card";
 import { APP_NAME, API, DOMAIN, FB_APP_ID } from "../../config";
 
 const Blogs = ({
