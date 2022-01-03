@@ -61,11 +61,11 @@ const Blogs = ({
 
     const loadMore = () => {
         let toSkip = skip + limit;
-        listBlogsWithCategoriesAndTags(toSkip, limit).then((data) => {
+        listBlogsWithCategoriesAndTags(toSkip, limit).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
-                setLoadedBlogs([...loadedBlogs]);
+                setLoadedBlogs([...loadedBlogs, ...data.blogs]);
                 setSize(data.size);
                 setSkip(toSkip);
             }
@@ -110,7 +110,7 @@ const Blogs = ({
     const showAllTags = () => {
         return tags.map((t, i) => {
             return (
-                <Link href={`/categories/${t.slug}`} key={i}>
+                <Link href={`/tags/${t.slug}`} key={i}>
                     <a className="btn btn-outline-primary mr-1 ml-1 mt-3">
                         {t.name}
                     </a>
@@ -164,7 +164,7 @@ const Blogs = ({
 Blogs.getInitialProps = () => {
     let skip = 0;
     let limit = 2;
-    return listBlogsWithCategoriesAndTags(skip, limit).then((data) => {
+    return listBlogsWithCategoriesAndTags(skip, limit).then(data => {
         if (data.error) {
             console.log(data.error);
         } else {
@@ -174,7 +174,7 @@ Blogs.getInitialProps = () => {
                 tags: data.tags,
                 totalBlogs: data.size,
                 blogsLimit: limit,
-                blogSkip: skip,
+                blogSkip: skip
             };
         }
     });
