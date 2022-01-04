@@ -17,6 +17,7 @@ import {
     DropdownMenu,
     DropdownItem,
 } from "reactstrap";
+import Search from "./blog/Search";
 import ".././node_modules/nprogress/nprogress.css";
 
 Router.onRouteChangeStart = (url) => NProgress.start();
@@ -31,7 +32,7 @@ const Header = () => {
     };
 
     return (
-        <div>
+        <>
             <Navbar color="light" light expand="md">
                 <Link href="/">
                     <NavLink className="font-weight-bold">{APP_NAME}</NavLink>
@@ -43,7 +44,7 @@ const Header = () => {
                             <Link href="/blogs">
                                 <NavLink>Blogs</NavLink>
                             </Link>
-                        </NavItem>                        
+                        </NavItem>
 
                         {!isAuth() && (
                             <>
@@ -95,7 +96,8 @@ const Header = () => {
                     </Nav>
                 </Collapse>
             </Navbar>
-        </div>
+            <Search />
+        </>
     );
 };
 
