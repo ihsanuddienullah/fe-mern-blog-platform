@@ -170,7 +170,6 @@ const BlogUpdate = ({ router }) => {
     };
 
     const handleChange = (name) => (e) => {
-        // console.log(e.target.value);
         const value = name === "photo" ? e.target.files[0] : e.target.value;
         formData.set(name, value);
         setValues({ ...values, [name]: value, formData, error: "" });
@@ -178,7 +177,7 @@ const BlogUpdate = ({ router }) => {
 
     const handleBody = (e) => {
         setBody(e);
-        formData?.set("body", e);
+        formData.set("body", e);
     };
 
     const editBlog = (e) => {
@@ -190,33 +189,37 @@ const BlogUpdate = ({ router }) => {
                 setValues({
                     ...values,
                     title: "",
-                    success: `Blog titled ${data.title} is successfully updated`,
+                    success: `Blog titled "${data.title}" is successfully updated`,
                 });
                 if (isAuth() && isAuth().role === 1) {
                     Router.replace(`/admin/crud/blogs`);
                 } else if (isAuth() && isAuth().role === 0) {
-                    Router.replace(`/user`);
+                    Router.replace(`/user/crud/blogs`);
                 }
             }
         });
     };
 
     const showError = () => {
-        <div
-            className="alert alert-danger"
-            style={{ display: error ? "" : "none" }}
-        >
-            {error}
-        </div>;
+        return (
+            <div
+                className="alert alert-danger"
+                style={{ display: error ? "" : "none" }}
+            >
+                {error}
+            </div>
+        );
     };
 
     const showSuccess = () => {
-        <div
-            className="alert alert-success"
-            style={{ display: success ? "" : "none" }}
-        >
-            {success}
-        </div>;
+        return (
+            <div
+                className="alert alert-success"
+                style={{ display: success ? "" : "none" }}
+            >
+                {success}
+            </div>
+        );
     };
 
     const updateBlogForm = () => {
@@ -307,3 +310,4 @@ const BlogUpdate = ({ router }) => {
 };
 
 export default withRouter(BlogUpdate);
+

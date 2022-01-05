@@ -4,7 +4,7 @@ import SigninComponent from "../components/auth/SigninComponent";
 const Signin = () => {
     return (
         <Layout>
-            <h2 className="text-center py-4">Singin Page</h2>
+            <h2 className="text-center py-4">Sign in Page</h2>
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     <SigninComponent />
