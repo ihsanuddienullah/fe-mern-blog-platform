@@ -46,6 +46,12 @@ const Header = () => {
                             </Link>
                         </NavItem>
 
+                        <NavItem>
+                            <Link href="/contact">
+                                <NavLink>Contact</NavLink>
+                            </Link>
+                        </NavItem>
+
                         {!isAuth() && (
                             <>
                                 <NavItem>

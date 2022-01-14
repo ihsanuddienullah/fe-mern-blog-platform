@@ -33,7 +33,7 @@ const Card = ({ blog }) => {
             </header>
             <section>
                 <p className="mark ml-1 pt-2 pb-2">
-                    Written by{" "}
+                    Written by{" "}                    
                     <Link href={`/profile/${blog?.postedBy?.username}`}>
                         <a>{blog?.postedBy?.name}</a>
                     </Link>{" "}
