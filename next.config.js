@@ -7,6 +7,8 @@ module.exports = {
         DOMAIN_DEVELOPMENT: "http://localhost:3000",
         DOMAIN_PRODUCTION: "https://seoblog.com",
         FB_APP_ID: "449610619875787",
-        DISQUS_SHORTNAME: 'seoblog-wycgccbqew',        
+        DISQUS_SHORTNAME: "seoblog-wycgccbqew",
+        GOOGLE_CLIENT_ID:
+            "264223307140-0ifgcd452u3lj5bm3jl713vf1hmdi7lc.apps.googleusercontent.com",
     },
 };

@@ -9,11 +9,12 @@ const ActivateAccount = ({ router }) => {
         name: "",
         token: "",
         error: false,
+        loading: false,
         success: false,
         showButton: true,
     });
 
-    const { name, token, error, success, showButton } = values;
+    const { name, token, error, loading, success, showButton } = values;
 
     useEffect(() => {
         let token = router.query.id;

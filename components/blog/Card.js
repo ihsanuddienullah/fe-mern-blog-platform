@@ -3,7 +3,7 @@ import Link from "next/link";
 import moment from "moment";
 import { API } from "../../config";
 
-const Card = ({ blog }) => {
+const Card = ({ blog }) => {    
     const showBlogCategories = (blog) =>
         blog.categories.map((c, i) => (
             <Link key={i} href={`/categories/${c.slug}`}>
