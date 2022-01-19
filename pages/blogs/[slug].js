@@ -7,6 +7,7 @@ import { APP_NAME, API, DOMAIN, FB_APP_ID } from "../../config";
 import renderHTML from "html-react-parser";
 import moment from "moment";
 import SmallCard from "../../components/blog/SmallCard";
+import DisqusThread from "../../components/DisqusThread";
 
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
@@ -83,6 +84,18 @@ const SingleBlog = ({ blog, query }) => {
         });
     };
 
+    const showComments = () => {
+        return (
+            <div>
+                <DisqusThread
+                    id={blog.id}
+                    title={blog.title}
+                    path={`/blog/${blog.slug}`}
+                />
+            </div>
+        );
+    };
+
     useEffect(() => {
         loadRelated();
     }, []);
@@ -112,8 +125,13 @@ const SingleBlog = ({ blog, query }) => {
                                         {blog.title}
                                     </h1>
                                     <p className="lead mt-3 mark">
-                                        Written by {blog?.postedBy?.name} |
-                                        Published
+                                        Written by{" "}
+                                        <Link
+                                            href={`/profile/${blog?.postedBy?.username}`}
+                                        >
+                                            <a>{blog?.postedBy?.name}</a>
+                                        </Link>{" "}
+                                        | Published
                                         {moment(blog?.updatedAt).fromNow()}
                                     </p>
                                     <div className="pb-3">
@@ -139,9 +157,7 @@ const SingleBlog = ({ blog, query }) => {
                             <div className="row">{showRelatedBlog()}</div>
                         </div>
 
-                        <div className="container pb-5">
-                            <p>show comments</p>
-                        </div>
+                        <div className="container pt-5 pb-5">{showComments()}</div>
                     </article>
                 </main>
             </Layout>

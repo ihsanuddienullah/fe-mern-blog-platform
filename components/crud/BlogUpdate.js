@@ -1,58 +1,75 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import Router, { withRouter } from "next/router";
+import Router from "next/router";
 import dynamic from "next/dynamic";
+import { withRouter } from "next/router";
 import { getCookie, isAuth } from "../../actions/auth";
 import { getCategories } from "../../actions/category";
 import { getTags } from "../../actions/tag";
-import { createBlog } from "../../actions/blog";
+import { singleBlog, updateBlog } from "../../actions/blog";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "../../node_modules/react-quill/dist/quill.snow.css";
 import { QuillModules, QuillFormats } from "../../helpers/quill";
+import { API } from "../../config";
 
-const CreateBlog = ({ router }) => {
-    const blogFromLS = () => {
-        if (typeof window === "undefined") {
-            return false;
-        }
-
-        if (localStorage.getItem("blog")) {
-            return JSON.parse(localStorage.getItem("blog"));
-        } else {
-            return false;
-        }
-    };
-
+const BlogUpdate = ({ router }) => {
+    const [body, setBody] = useState("");
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
-
     const [checked, setChecked] = useState([]); // categories
     const [checkedTag, setCheckedTag] = useState([]); // tags
-
-    const [body, setBody] = useState(blogFromLS());
     const [values, setValues] = useState({
         error: "",
-        sizeError: "",
         success: "",
         formData: "",
         title: "",
-        hidePublishButton: false,
+        body: "",
     });
 
-    const { error, sizeError, success, title, formData, hidePublishButton } =
-        values;
-
+    const { error, success, formData, title } = values;
     const token = getCookie("token");
 
     useEffect(() => {
         setValues({ ...values, formData: new FormData() });
         initCategories();
         initTags();
+        initBlog();
     }, [router]);
+
+    const initBlog = () => {
+        if (router.query.slug) {
+            singleBlog(router.query.slug).then((data) => {
+                if (data?.error) {
+                    console.log(data?.error);
+                } else {
+                    setValues({ ...values, title: data?.title });
+                    setBody(data.body);
+                    setCategoriesArray(data?.categories);
+                    setTagsArray(data?.tags);
+                }
+            });
+        }
+    };
+
+    const setCategoriesArray = (blogCategories) => {
+        let ca = [];
+        blogCategories?.map((c, i) => {
+            ca.push(c._id);
+        });
+        setChecked(ca);
+    };
+
+    const setTagsArray = (blogTags) => {
+        let ta = [];
+        blogTags?.map((t, i) => {
+            ta.push(t._id);
+        });
+        setCheckedTag(ta);
+    };
 
     const initCategories = () => {
         getCategories().then((data) => {
-            if (data.error) {
+            if (data?.error) {
                 setValues({ ...values, error: data.error });
             } else {
                 setCategories(data);
@@ -62,45 +79,12 @@ const CreateBlog = ({ router }) => {
 
     const initTags = () => {
         getTags().then((data) => {
-            if (data.error) {
+            if (data?.error) {
                 setValues({ ...values, error: data.error });
             } else {
                 setTags(data);
             }
         });
-    };
-
-    const publishBlog = (e) => {
-        e.preventDefault();
-        createBlog(formData, token).then((data) => {
-            if (data.error) {
-                setValues({ ...values, error: data.error });
-            } else {
-                setValues({
-                    ...values,
-                    title: "",
-                    error: "",
-                    success: `A new blog titled "${data.title}" is created`,
-                });
-                setBody("");
-                setCategories([]);
-                setTags([]);
-            }
-        });
-    };
-
-    const handleChange = (name) => (e) => {
-        const value = name === "photo" ? e.target.files[0] : e.target.value;
-        formData.set(name, value);
-        setValues({ ...values, [name]: value, formData, error: "" });
-    };
-
-    const handleBody = (e) => {
-        setBody(e);
-        formData.set("body", e);
-        if (typeof window !== "undefined") {
-            localStorage.setItem("blog", JSON.stringify(e));
-        }
     };
 
     const handleToggle = (c) => () => {
@@ -129,6 +113,24 @@ const CreateBlog = ({ router }) => {
         formData.set("tags", all);
     };
 
+    const findOutCategory = (c) => {
+        const result = checked.indexOf(c);
+        if (result === -1) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    const findOutTag = (t) => {
+        const result = checkedTag.indexOf(t);
+        if (result === -1) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     const showCategories = () => {
         return (
             categories &&
@@ -138,6 +140,7 @@ const CreateBlog = ({ router }) => {
                         onChange={handleToggle(c._id)}
                         type="checkbox"
                         className="mr-2"
+                        checked={findOutCategory(c._id)}
                     />
                     <label type="checkbox" className="form-check-label">
                         {c.name}
@@ -156,6 +159,7 @@ const CreateBlog = ({ router }) => {
                         onChange={handleTagsToggle(t._id)}
                         type="checkbox"
                         className="mr-2"
+                        checked={findOutTag(t._id)}
                     />
                     <label type="checkbox" className="form-check-label">
                         {t.name}
@@ -165,32 +169,67 @@ const CreateBlog = ({ router }) => {
         );
     };
 
-    const showError = () => (
-        <div
-            className="alert alert-danger"
-            style={{ display: error ? "" : "none" }}
-        >
-            {error}
-        </div>
-    );
+    const handleChange = (name) => (e) => {
+        const value = name === "photo" ? e.target.files[0] : e.target.value;
+        formData.set(name, value);
+        setValues({ ...values, [name]: value, formData, error: "" });
+    };
 
-    const showSuccess = () => (
-        <div
-            className="alert alert-success"
-            style={{ display: success ? "" : "none" }}
-        >
-            {success}
-        </div>
-    );
+    const handleBody = (e) => {
+        setBody(e);
+        formData.set("body", e);
+    };
 
-    const createBlogForm = () => {
+    const editBlog = (e) => {
+        e.preventDefault();
+        updateBlog(formData, token, router.query.slug).then((data) => {
+            if (data.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                setValues({
+                    ...values,
+                    title: "",
+                    success: `Blog titled "${data.title}" is successfully updated`,
+                });
+                if (isAuth() && isAuth().role === 1) {
+                    Router.replace(`/admin/crud/blogs`);
+                } else if (isAuth() && isAuth().role === 0) {
+                    Router.replace(`/user/crud/blogs`);
+                }
+            }
+        });
+    };
+
+    const showError = () => {
         return (
-            <form onSubmit={publishBlog}>
+            <div
+                className="alert alert-danger"
+                style={{ display: error ? "" : "none" }}
+            >
+                {error}
+            </div>
+        );
+    };
+
+    const showSuccess = () => {
+        return (
+            <div
+                className="alert alert-success"
+                style={{ display: success ? "" : "none" }}
+            >
+                {success}
+            </div>
+        );
+    };
+
+    const updateBlogForm = () => {
+        return (
+            <form onSubmit={editBlog}>
                 <div className="form-group">
                     <label className="text-muted">Title</label>
                     <input
-                        className="form-control"
                         type="text"
+                        className="form-control"
                         value={title}
                         onChange={handleChange("title")}
                     />
@@ -208,21 +247,29 @@ const CreateBlog = ({ router }) => {
 
                 <div>
                     <button type="submit" className="btn btn-primary">
-                        Publish
+                        Update
                     </button>
                 </div>
             </form>
         );
     };
+
     return (
         <div className="container-fluid pb-5">
             <div className="row">
                 <div className="col-md-8">
-                    {createBlogForm()}
+                    {updateBlogForm()}
                     <div className="pt-3">
                         {showSuccess()}
                         {showError()}
                     </div>
+                    {body && (
+                        <img
+                            src={`${API}/blog/photo/${router.query.slug}`}
+                            alt={title}
+                            style={{ width: "100%" }}
+                        />
+                    )}
                 </div>
                 <div className="col-md-4">
                     <div>
@@ -262,4 +309,4 @@ const CreateBlog = ({ router }) => {
     );
 };
 
-export default withRouter(CreateBlog);
+export default withRouter(BlogUpdate);

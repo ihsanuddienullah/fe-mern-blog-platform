@@ -4,7 +4,7 @@ import { withRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { useState } from "react";
 import { listBlogsWithCategoriesAndTags } from "../../actions/blog";
-import Card from "../../components/blog/card";
+import Card from "../../components/blog/Card";
 import { APP_NAME, API, DOMAIN, FB_APP_ID } from "../../config";
 
 const Blogs = ({
@@ -65,7 +65,7 @@ const Blogs = ({
             if (data.error) {
                 console.log(data.error);
             } else {
-                setLoadedBlogs([...loadedBlogs]);
+                setLoadedBlogs([...loadedBlogs, ...data.blogs]);
                 setSize(data.size);
                 setSkip(toSkip);
             }
@@ -91,7 +91,6 @@ const Blogs = ({
             return (
                 <article key={i}>
                     <Card blog={blog} />
-                    <hr />
                 </article>
             );
         });
@@ -110,7 +109,7 @@ const Blogs = ({
     const showAllTags = () => {
         return tags.map((t, i) => {
             return (
-                <Link href={`/categories/${t.slug}`} key={i}>
+                <Link href={`/tags/${t.slug}`} key={i}>
                     <a className="btn btn-outline-primary mr-1 ml-1 mt-3">
                         {t.name}
                     </a>

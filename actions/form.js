@@ -1,27 +1,24 @@
 import fetch from "isomorphic-fetch";
 import { API } from "../config";
-import queryString from "query-string";
-import { isAuth, handleResponse } from "./auth";
 
-export const createBlog = (blog, token) => {
-    let createBlogEndpoint;
+export const emailContactForm = (data) => {
+    let emailEndpoint;
 
-    if (isAuth() && isAuth().role === 1) {
-        createBlogEndpoint = `${API}/blog`;
+    if (data.authorEmail) {
+        emailEndpoint = `${API}/contact-blog-author`;
     } else {
-        createBlogEndpoint = `${API}/user/blog`;
+        emailEndpoint = `${API}/contact`;
     }
 
-    return fetch(`${createBlogEndpoint}`, {
+    return fetch(`${emailEndpoint}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
         },
-        body: blog,
+        body: JSON.stringify(data),
     })
         .then((response) => {
-            handleResponse(response);
             return response.json();
         })
         .catch((err) => console.log(err));

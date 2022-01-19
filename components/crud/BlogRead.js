@@ -5,7 +5,7 @@ import { getCookie, isAuth } from "../../actions/auth";
 import { list, removeBlog } from "../../actions/blog";
 import moment from "moment";
 
-const BlogRead = () => {
+const BlogRead = ({ username }) => {
     const [blogs, setBlogs] = useState([]);
     const [message, setMessage] = useState("");
     const token = getCookie("token");
@@ -15,7 +15,7 @@ const BlogRead = () => {
     }, []);
 
     const loadBlogs = () => {
-        list().then((data) => {
+        list(username).then((data) => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -44,14 +44,39 @@ const BlogRead = () => {
         }
     };
 
+    const showUpdateButton = (blog) => {
+        if (isAuth() && isAuth().role === 0) {
+            return (
+                <a
+                    href={`/user/crud/${blog.slug}`}
+                    className="ml-2 btn btn-sm btn-warning"
+                >
+                    Update
+                </a>
+            );
+        } else if (isAuth() && isAuth().role === 1) {
+            return (
+                <a
+                    href={`/admin/crud/${blog.slug}`}
+                    className="ml-2 btn btn-sm btn-warning"
+                >
+                    Update
+                </a>
+            );
+        }
+    };
+
     const showAllBlogs = () => {
         return blogs.map((blog, i) => {
             return (
                 <div key={i} className="pb-5">
                     <h3>{blog.title}</h3>
                     <p className="mark ml-1 pt-2 pb-2">
-                        Written by {blog?.postedBy?.name} | Published
-                        {moment(blog?.updatedAt).fromNow()}
+                        Written by{" "}
+                        <Link href={`/profile/${blog?.postedBy?.username}`}>
+                            <a>{blog?.postedBy?.name}</a>
+                        </Link>{" "}
+                        | Published {moment(blog?.updatedAt).fromNow()}
                     </p>
                     <button
                         className="btn btn-sm btn-danger"
@@ -59,6 +84,7 @@ const BlogRead = () => {
                     >
                         Delete
                     </button>
+                    {showUpdateButton(blog)}
                 </div>
             );
         });

@@ -17,6 +17,7 @@ import {
     DropdownMenu,
     DropdownItem,
 } from "reactstrap";
+import Search from "./blog/Search";
 import ".././node_modules/nprogress/nprogress.css";
 
 Router.onRouteChangeStart = (url) => NProgress.start();
@@ -31,7 +32,7 @@ const Header = () => {
     };
 
     return (
-        <div>
+        <>
             <Navbar color="light" light expand="md">
                 <Link href="/">
                     <NavLink className="font-weight-bold">{APP_NAME}</NavLink>
@@ -43,18 +44,24 @@ const Header = () => {
                             <Link href="/blogs">
                                 <NavLink>Blogs</NavLink>
                             </Link>
-                        </NavItem>                        
+                        </NavItem>
+
+                        <NavItem>
+                            <Link href="/contact">
+                                <NavLink>Contact</NavLink>
+                            </Link>
+                        </NavItem>
 
                         {!isAuth() && (
                             <>
                                 <NavItem>
                                     <Link href="/signin">
-                                        <NavLink>Signin</NavLink>
+                                        <NavLink>Sign in</NavLink>
                                     </Link>
                                 </NavItem>
                                 <NavItem>
                                     <Link href="/signup">
-                                        <NavLink>Signup</NavLink>
+                                        <NavLink>Sign up</NavLink>
                                     </Link>
                                 </NavItem>
                             </>
@@ -88,14 +95,23 @@ const Header = () => {
                                         signout(() => Router.replace(`/signin`))
                                     }
                                 >
-                                    Signout
+                                    Sign out
                                 </NavLink>
                             </NavItem>
                         )}
+
+                        <NavItem>
+                            <Link href="/user/crud/blog">
+                                <NavLink className="btn btn-primary text-light">
+                                    Write a blog
+                                </NavLink>
+                            </Link>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>
-        </div>
+            <Search />
+        </>
     );
 };
 
