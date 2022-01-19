@@ -5,7 +5,7 @@ import { API } from "../../config";
 
 const SmallCard = ({ blog }) => {
     return (
-        <div className="card">
+        <div className="card small-card">
             <section>
                 <Link href={`/blogs/${blog.slug}`}>
                     <a>

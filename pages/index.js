@@ -1,7 +1,21 @@
+import { withRouter } from "next/router";
 import Layout from "../components/Layout";
-import Link from "next/link";
+import { listBlogsWithCategoriesAndTags } from "../actions/blog";
+import SmallCard from "../components/blog/SmallCard";
 
-const Index = () => {
+const Index = ({ blogs }) => {
+    const showNewestBlog = () => {
+        return blogs?.map((blog, i) => {
+            return (
+                <div className="col-md-4 my-2"  key={i}>
+                    <article>
+                        <SmallCard blog={blog} />
+                    </article>
+                </div>
+            );
+        });
+    };
+
     return (
         <Layout>
             <article className="overflow-hidden">
@@ -25,99 +39,27 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <div className="flip flip-horizontal">
-                                <div
-                                    className="front"
-                                    style={{
-                                        backgroundImage:
-                                            "url(" +
-                                            "https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg" +
-                                            ")",
-                                    }}
-                                >
-                                    <h2 className="text-shadow text-center h1">
-                                        React
-                                    </h2>
-                                </div>
-                                <div className="back text-center">
-                                    <Link href="/categories/react">
-                                        <a>
-                                            <h3 className="h1">React Js</h3>
-                                        </a>
-                                    </Link>
-                                    <p className="lead">
-                                        The world's most popular frontend web
-                                        development library
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-4">
-                            <div className="flip flip-horizontal">
-                                <div
-                                    className="front"
-                                    style={{
-                                        backgroundImage:
-                                            "url(" +
-                                            "https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg" +
-                                            ")",
-                                    }}
-                                >
-                                    <h2 className="text-shadow text-center h1">
-                                        Node
-                                    </h2>
-                                </div>
-                                <div className="back text-center">
-                                    <Link href="/categories/node">
-                                        <a>
-                                            <h3 className="h1">Node Js</h3>
-                                        </a>
-                                    </Link>
-                                    <p className="lead">
-                                        The worlds most popular backend
-                                        development tool for JavaScript Ninjas
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-4">
-                            <div className="flip flip-horizontal">
-                                <div
-                                    className="front"
-                                    style={{
-                                        backgroundImage:
-                                            "url(" +
-                                            "https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg" +
-                                            ")",
-                                    }}
-                                >
-                                    <h2 className="text-shadow text-center h1">
-                                        Next
-                                    </h2>
-                                </div>
-                                <div className="back text-center">
-                                    <Link href="/categories/nextjs">
-                                        <a>
-                                            <h3 className="h1">Next Js</h3>
-                                        </a>
-                                    </Link>
-                                    <p className="lead">
-                                        A Production ready web framework for
-                                        building SEO React apps
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="container">
+                    <h3>Newest Blog</h3>
+                    <div className="row">{showNewestBlog()}</div>
                 </div>
             </article>
         </Layout>
     );
 };
 
-export default Index;
+Index.getInitialProps = () => {
+    let skip = 0;
+    let limit = 3;
+    return listBlogsWithCategoriesAndTags(skip, limit).then((data) => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+            return {
+                blogs: data.blogs,
+            };
+        }
+    });
+};
+
+export default withRouter(Index);
