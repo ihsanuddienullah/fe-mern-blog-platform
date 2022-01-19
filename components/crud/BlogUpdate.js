@@ -116,18 +116,18 @@ const BlogUpdate = ({ router }) => {
     const findOutCategory = (c) => {
         const result = checked.indexOf(c);
         if (result === -1) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     };
 
     const findOutTag = (t) => {
         const result = checkedTag.indexOf(t);
         if (result === -1) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     };
 
@@ -310,4 +310,3 @@ const BlogUpdate = ({ router }) => {
 };
 
 export default withRouter(BlogUpdate);
-
