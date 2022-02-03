@@ -5,17 +5,9 @@ import Layout from "../../components/Layout";
 import { useState } from "react";
 import { listBlogsWithCategoriesAndTags } from "../../actions/blog";
 import Card from "../../components/blog/Card";
-import { APP_NAME, API, DOMAIN, FB_APP_ID } from "../../config";
+import { APP_NAME, DOMAIN, FB_APP_ID } from "../../config";
 
-const Blogs = ({
-    blogs,
-    categories,
-    tags,
-    totalBlogs,
-    blogsLimit,
-    BlogSkip,
-    router,
-}) => {
+const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, router }) => {
     const [limit, setLimit] = useState(blogsLimit);
     const [skip, setSkip] = useState(0);
     const [size, setSize] = useState(totalBlogs);

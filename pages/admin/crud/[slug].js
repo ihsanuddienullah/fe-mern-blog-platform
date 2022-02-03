@@ -1,7 +1,6 @@
 import Layout from "../../../components/Layout";
 import Admin from "../../../components/auth/Admin";
 import BlogUpdate from "../../../components/crud/BlogUpdate";
-import Link from "next/link";
 
 const Blog = () => {
     return (
@@ -14,7 +13,7 @@ const Blog = () => {
                         </div>
                         <div className="col-md-12">
                             <BlogUpdate />
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </Admin>
