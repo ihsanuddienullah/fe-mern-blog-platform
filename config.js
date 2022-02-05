@@ -24,7 +24,7 @@ export const API =
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME;
 
 export const DOMAIN =
-    process.env.NODE_ENV === "PRODUCTION"
+    process.env.NEXT_PUBLIC_NODE_ENV === "PRODUCTION"
         ? process.env.NEXT_PUBLIC_DOMAIN_PRODUCTION
         : process.env.DOMAIN_DEVELOPMENT;
 
