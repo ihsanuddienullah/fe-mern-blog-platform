@@ -131,7 +131,7 @@ const SingleBlog = ({ blog, query }) => {
                                         >
                                             <a>{blog?.postedBy?.name}</a>
                                         </Link>{" "}
-                                        | Published
+                                        | Published{" "}
                                         {moment(blog?.updatedAt).fromNow()}
                                     </p>
                                     <div className="pb-3">
@@ -157,7 +157,9 @@ const SingleBlog = ({ blog, query }) => {
                             <div className="row">{showRelatedBlog()}</div>
                         </div>
 
-                        <div className="container pt-5 pb-5">{showComments()}</div>
+                        <div className="container pt-5 pb-5">
+                            {showComments()}
+                        </div>
                     </article>
                 </main>
             </Layout>
