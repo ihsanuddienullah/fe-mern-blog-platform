@@ -13,11 +13,11 @@
 //     : publicRuntimeConfig.DOMAIN_DEVELOPMENT;
 
 // export const FB_APP_ID = publicRuntimeConfig.FB_APP_ID;
-// export const DISQUS_SHORTNAME = publicRuntimeConfig.DISQUS_SHORTNAME
-// export const GOOGLE_CLIENT_ID = publicRuntimeConfig.GOOGLE_CLIENT_ID
+// export const DISQUS_SHORTNAME = publicRuntimeConfig.DISQUS_SHORTNAME;
+// export const GOOGLE_CLIENT_ID = publicRuntimeConfig.GOOGLE_CLIENT_ID;
 
 export const API =
-    process.env.NODE_ENV === "PRODUCTION"
+    process.env.NEXT_PUBLIC_NODE_ENV === "PRODUCTION"
         ? process.env.NEXT_PUBLIC_API_PRODUCTION
         : process.env.API_DEVELOPMENT;
 
