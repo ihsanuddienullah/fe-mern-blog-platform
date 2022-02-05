@@ -2,7 +2,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
     setGoogleTags() {
-        if (process.env.NODE_ENV === "PRODUCTION") {
+        if (process.env.NEXT_PUBLIC_NODE_ENV === "PRODUCTION") {
             return {
                 __html: ` 
                 window.dataLayer = window.dataLayer || [];
