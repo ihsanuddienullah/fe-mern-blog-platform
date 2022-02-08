@@ -24,24 +24,24 @@ const Card = ({ blog }) => {
         ));
 
     return (
-        <div class="card mb-3 big-card">
-            <div class="row g-0">
-                <div class="col-md-4">
+        <div className="card mb-3 big-card">
+            <div className="row g-0">
+                <div className="col-md-4">
                     <img
                         src={`${API}/blog/photo/${blog.slug}`}
-                        class="img-fluid rounded-start img"
+                        className="img-fluid rounded-start img"
                         alt={blog.title}
                         style={{ height: "100%", width: "100%" }}
                     />
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
+                <div className="col-md-8">
+                    <div className="card-body">
                         <Link href={`/blogs/${blog.slug}`}>
                             <a>
-                                <h5 class="card-title">{blog.title}</h5>
+                                <h5 className="card-title">{blog.title}</h5>
                             </a>
                         </Link>
-                        <p class="card-text">
+                        <p className="card-text">
                             {renderHTML(`${blog.excerpt}`)}
                             <Link href={`/blogs/${blog.slug}`}>
                                 <a>Read more</a>
@@ -49,8 +49,8 @@ const Card = ({ blog }) => {
                         </p>
                         {showBlogCategories(blog)}
                         {showBlogTags(blog)}
-                        <p class="card-text">
-                            <small class="text-muted">
+                        <p className="card-text">
+                            <small className="text-muted">
                                 Written by{" "}
                                 <Link
                                     href={`/profile/${blog?.postedBy?.username}`}

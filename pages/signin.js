@@ -13,15 +13,17 @@ const Signin = ({ router }) => {
 
     return (
         <Layout>
-            <h2 className="text-center py-4">Sign in Page</h2>
-            <div className="row">
-                <div className="col-md-8 offset-md-2">
-                    {showRedirectMessage()}
+            <div className="container">
+                <h2 className="text-center py-4">Sign in Page</h2>
+                <div className="row">
+                    <div className="col-md-8 offset-md-2">
+                        {showRedirectMessage()}
+                    </div>
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-md-8 offset-md-2">
-                    <SigninComponent />
+                <div className="row">
+                    <div className="col-md-8 offset-md-2">
+                        <SigninComponent />
+                    </div>
                 </div>
             </div>
         </Layout>
