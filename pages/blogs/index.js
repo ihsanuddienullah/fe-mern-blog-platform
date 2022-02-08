@@ -16,7 +16,7 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, router }) => {
     const head = () => {
         return (
             <Head>
-                <title>Programming blogs | {APP_NAME}</title>
+                <title>Publihed random blogs | {APP_NAME}</title>
                 <meta
                     name="description"
                     content="Programming blogs and tutorials on react node next vue php laravel and web development"
@@ -128,8 +128,8 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, router }) => {
                     <div className="container-fluid">
                         <header>
                             <div className="col-md-12 pt-3">
-                                <h1 className="display-4 font-weight-bold text-center">
-                                    Programming blogs and tutorials
+                                <h1 className="display-5 font-weight-bold text-center">
+                                    Published blogs
                                 </h1>
                             </div>
                             <section>

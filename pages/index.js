@@ -7,7 +7,7 @@ const Index = ({ blogs }) => {
     const showNewestBlog = () => {
         return blogs?.map((blog, i) => {
             return (
-                <div className="col-md-4 my-2"  key={i}>
+                <div className="col-md-4 my-2" key={i}>
                     <article>
                         <SmallCard blog={blog} />
                     </article>
@@ -22,9 +22,9 @@ const Index = ({ blogs }) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 text-center">
-                            <h1 className="display-4 font-weight-bold">
-                                PROGRAMMING & WEB DEVELOPMENT BLOGS/TUTORIALS
-                            </h1>
+                            <h5 className="display-5 font-weight-bold">
+                                PROGRAMMING AND RANDOM BLOGS
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -33,8 +33,8 @@ const Index = ({ blogs }) => {
                     <div className="row">
                         <div className="col-md-12 text-center pt-4 pb-5">
                             <p className="lead">
-                                Best programming and web development blogs and
-                                tutorials on React Node NextJs and JavaScript
+                                Random blogs to read. All about programming,
+                                career, selfnotes, self development, etc.
                             </p>
                         </div>
                     </div>

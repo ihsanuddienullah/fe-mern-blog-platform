@@ -61,7 +61,7 @@ const Search = () => {
                     <div className="col-md-8">
                         <input
                             type="search"
-                            className="form-control"
+                            className="form-control mb-2"
                             placeholder="Search blogs"
                             onChange={handleChange}
                         />

@@ -12,10 +12,10 @@ const CategoryTag = () => {
                         <div className="col-md-12 pt-5 pb-5">
                             <h1>Manage Categories and Tags</h1>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 mb-2">
                             <Category />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 mb-2">
                             <Tag />
                         </div>
                     </div>

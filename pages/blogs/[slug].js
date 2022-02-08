@@ -121,7 +121,7 @@ const SingleBlog = ({ blog, query }) => {
                             </section>
                             <section>
                                 <div className="container">
-                                    <h1 className="display-2 pb-3 pt-3 text-center font-weight-bold">
+                                    <h1 className="display-5 pb-3 pt-3 text-center font-weight-bold">
                                         {blog.title}
                                     </h1>
                                     <p className="lead mt-3 mark">
@@ -150,7 +150,7 @@ const SingleBlog = ({ blog, query }) => {
                         </div>
 
                         <div className="container">
-                            <h4 className="text-center pt-5 pb-5 h2">
+                            <h4 className="text-center pt-5 pb-2 h2">
                                 Related blogs
                             </h4>
                             <hr />
