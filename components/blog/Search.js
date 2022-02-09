@@ -83,7 +83,7 @@ const Search = () => {
     };
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid mb-3">
             <div className="pt-3 pb-2">{searchForm()}</div>
             {searched && <div>{searchedBlogs(results)}</div>}
         </div>
