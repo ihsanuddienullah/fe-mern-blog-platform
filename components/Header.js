@@ -68,7 +68,7 @@ const Header = () => {
                         )}
 
                         {isAuth() && isAuth().role === 0 && (
-                            <NavItem>
+                            <NavItem className="text-capitalize">
                                 <Link href="/user">
                                     <NavLink>{`${
                                         isAuth().name
@@ -78,7 +78,7 @@ const Header = () => {
                         )}
 
                         {isAuth() && isAuth().role === 1 && (
-                            <NavItem>
+                            <NavItem className="text-capitalize">
                                 <Link href="/admin">
                                     <NavLink>{`${
                                         isAuth().name

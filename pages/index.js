@@ -20,7 +20,7 @@ const Index = ({ blogs }) => {
         <Layout>
             <article className="overflow-hidden">
                 <div className="container">
-                    <div className="row">
+                    <div className="row mt-5">
                         <div className="col-md-12 text-center">
                             <h5 className="display-5 font-weight-bold">
                                 PROGRAMMING AND RANDOM BLOGS

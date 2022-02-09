@@ -36,9 +36,9 @@ const Search = () => {
 
     const searchedBlogs = (results = []) => {
         return (
-            <div className="jumbotron bg-white">
+            <div className="p-2 bg-white searched-blogs" style={{borderRadius: "0.25rem"}}>
                 {message && (
-                    <p className="pt-4 text-muted font-italic">{message}</p>
+                    <p className="pt-2 text-muted font-italic">{message}</p>
                 )}
 
                 {results.map((blog, i) => {
@@ -81,12 +81,8 @@ const Search = () => {
 
     return (
         <div className="container-fluid">
-            <div className="pt-3 pb-5">{searchForm()}</div>
-            {searched && (
-                <div style={{ marginTop: "-120px", marginBottom: "-80px" }}>
-                    {searchedBlogs(results)}
-                </div>
-            )}
+            <div className="pt-3 pb-2">{searchForm()}</div>
+            {searched && <div>{searchedBlogs(results)}</div>}
         </div>
     );
 };
