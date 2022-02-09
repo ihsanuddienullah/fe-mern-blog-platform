@@ -106,7 +106,7 @@ const SingleBlog = ({ blog, query }) => {
             <Layout>
                 <main>
                     <article>
-                        <div className="container-fluid">
+                        <div className="container-fluid mt-5">
                             <section>
                                 <div
                                     className="row"

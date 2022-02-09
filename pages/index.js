@@ -22,9 +22,9 @@ const Index = ({ blogs }) => {
                 <div className="container">
                     <div className="row mt-5">
                         <div className="col-md-12 text-center">
-                            <h5 className="display-5 font-weight-bold">
+                            <h1 className="display-5 font-weight-bold">
                                 PROGRAMMING AND RANDOM BLOGS
-                            </h5>
+                            </h1>
                         </div>
                     </div>
                 </div>
