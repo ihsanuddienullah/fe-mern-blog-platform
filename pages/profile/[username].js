@@ -101,7 +101,7 @@ const UserProfile = ({ user, blogs, query }) => {
                 <br />
                 <div className="container pb-5">
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-6 mb-2">
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title bg-primary p-4 text-white">

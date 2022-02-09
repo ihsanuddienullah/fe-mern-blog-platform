@@ -36,7 +36,6 @@ const LoginGoogle = () => {
                 onFailure={responseGoogle}
                 theme="dark"
             />
-            ,
         </div>
     );
 };
