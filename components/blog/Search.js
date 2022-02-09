@@ -37,7 +37,7 @@ const Search = () => {
     const searchedBlogs = (results = []) => {
         return (
             <div
-                className="p-2 bg-white searched-blogs mx-1"
+                className="p-2 bg-white searched-blogs my-1"
                 style={{ borderRadius: "0.25rem" }}
             >
                 {message && (
