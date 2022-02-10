@@ -7,12 +7,13 @@ import moment from "moment";
 
 const BlogRead = ({ username }) => {
     const [blogs, setBlogs] = useState([]);
+    const [refreshPage, setRefreshPage] = useState(false);
     const [message, setMessage] = useState("");
     const token = getCookie("token");
 
     useEffect(() => {
         loadBlogs();
-    }, []);
+    }, [refreshPage]);
 
     const loadBlogs = () => {
         list(username).then((data) => {
@@ -41,6 +42,7 @@ const BlogRead = ({ username }) => {
         );
         if (answer) {
             deleteBlog(slug);
+            setRefreshPage(true);
         }
     };
 
