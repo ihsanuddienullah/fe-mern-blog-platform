@@ -97,9 +97,8 @@ const UserProfile = ({ user, blogs, query }) => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <br />
-                <div className="container pb-5">
+                </div>                
+                <div className="container pb-5 mt-3">
                     <div className="row">
                         <div className="col-md-6 mb-2">
                             <div className="card">
