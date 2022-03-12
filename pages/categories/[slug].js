@@ -59,7 +59,7 @@ const Category = ({ category, blogs, query }) => {
                                 </h1>
                                 {blogs.map((b, i) => (
                                     <div>
-                                        <Card blog={b} key={i} />                                        
+                                        <Card blog={b} key={i} />
                                     </div>
                                 ))}
                             </div>
@@ -76,7 +76,6 @@ Category.getInitialProps = ({ query }) => {
         if (data.error) {
             console.log(data.error);
         } else {
-            console.log(data.blogs[0].postedBy);
             return { category: data.category, blogs: data.blogs, query };
         }
     });
