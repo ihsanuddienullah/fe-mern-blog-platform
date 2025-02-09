@@ -34,54 +34,50 @@ const Header = () => {
   return (
     <>
       <Navbar color="light" light expand="md">
-        <Link href="/">
-          <NavLink className="font-weight-bold cursor-pointer">
-            {APP_NAME}
-          </NavLink>
+        <Link className="font-weight-bold cursor-pointer" href="/">
+          {APP_NAME}
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem className="cursor-pointer">
-              <Link href="/blogs">
-                <NavLink>Blogs</NavLink>
-              </Link>
+              <Link href="/blogs">Blogs</Link>
             </NavItem>
 
             <NavItem className="cursor-pointer">
-              <Link href="/contact">
-                <NavLink>Contact</NavLink>
-              </Link>
+              {/* <Link href="/contact"> */}
+              <NavLink>Contact</NavLink>
+              {/* </Link> */}
             </NavItem>
 
             {!isAuth() && (
               <>
                 <NavItem className="cursor-pointer">
-                  <Link href="/signin">
-                    <NavLink>Sign in</NavLink>
-                  </Link>
+                  {/* <Link href="/signin"> */}
+                  <NavLink>Sign in</NavLink>
+                  {/* </Link> */}
                 </NavItem>
                 <NavItem className="cursor-pointer">
-                  <Link href="/signup">
-                    <NavLink>Sign up</NavLink>
-                  </Link>
+                  {/* <Link href="/signup"> */}
+                  <NavLink>Sign up</NavLink>
+                  {/* </Link> */}
                 </NavItem>
               </>
             )}
 
             {isAuth() && isAuth().role === 0 && (
               <NavItem className="text-capitalize cursor-pointer">
-                <Link href="/user">
-                  <NavLink>{`${isAuth().name}'s Dashboard`}</NavLink>
-                </Link>
+                {/* <Link href="/user"> */}
+                <NavLink>{`${isAuth().name}'s Dashboard`}</NavLink>
+                {/* </Link> */}
               </NavItem>
             )}
 
             {isAuth() && isAuth().role === 1 && (
               <NavItem className="text-capitalize cursor-pointer">
-                <Link href="/admin">
-                  <NavLink>{`${isAuth().name}'s Dashboard`}</NavLink>
-                </Link>
+                {/* <Link href="/admin"> */}
+                <NavLink>{`${isAuth().name}'s Dashboard`}</NavLink>
+                {/* </Link> */}
               </NavItem>
             )}
 
@@ -97,11 +93,11 @@ const Header = () => {
             )}
 
             <NavItem className="cursor-pointer">
-              <Link href="/user/crud/blog">
-                <NavLink className="btn btn-primary text-light">
-                  Write a blog
-                </NavLink>
-              </Link>
+              {/* <Link href="/user/crud/blog"> */}
+              <NavLink className="btn btn-primary text-light">
+                Write a blog
+              </NavLink>
+              {/* </Link> */}
             </NavItem>
           </Nav>
         </Collapse>
